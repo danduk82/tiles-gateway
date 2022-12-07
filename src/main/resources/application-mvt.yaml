@@ -10,6 +10,6 @@ spring:
         - id: vectortiles
           uri: lb://vectortiles
           predicates:
-            - Path=${gateway-context-path}/api/vectortiles/**
+            - Path=${gateway-context-path}/vectortiles/**
           filters:
-            - StripPrefix=4
+            - StripPrefix=2

@@ -5,7 +5,7 @@ ARG JAR_FILE
 
 WORKDIR /runtime
 
-ENV RUNTIME_JAR frontend-edge.jar
+ENV RUNTIME_JAR tiles-gateway.jar
 COPY target/${JAR_FILE} /runtime/$RUNTIME_JAR
 
 CMD java -jar $RUNTIME_JAR

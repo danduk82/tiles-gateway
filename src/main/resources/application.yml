@@ -1,4 +1,4 @@
-gateway-context-path: /flicc/gui
+gateway-context-path: /tiles
 
 server:
   port: 9082

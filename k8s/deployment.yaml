@@ -1,0 +1,52 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: tiles
+  name: tiles
+  namespace: default
+spec:
+  ports:
+    - port: 9082
+      name: https
+      protocol: TCP
+      targetPort: 9082
+    - port: 9083
+      name: management
+      protocol: TCP
+      targetPort: 9083
+  selector:
+    app: tiles
+  type: ClusterIP
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: tiles
+  name: tiles
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tiles
+  template:
+    metadata:
+      labels:
+        app: tiles
+    spec:
+      containers:
+        - image: danduk82/tiles-gateway:0.0.1-SNAPSHOT
+          imagePullPolicy: Always
+          name: tiles-gateway
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: "k8s,mvt"
+        - image: camptocamp/swisstopo-light-basemap:latest
+          name: vectortiles
+        #       value: /tiles/vectortiles
+        # - image: brndnmtthws/nginx-echo-headers
+        #   name: echo
+status: {}
