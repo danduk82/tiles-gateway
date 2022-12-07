@@ -1,0 +1,17 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        #services behind the gateway
+        - id: geoserver
+          uri: lb://geoserver
+          predicates:
+            - Path=${gateway-context-path}/api/geoserver/**
+          filters:
+            #TODO 09-Mar-2022/hunor: temporary solution, remove filter when integration is ready ISCEJPDFLICC-719
+            - RemoveRequestHeader=Authorization
+            - StripPrefix=3
+            #geoserver needs the X-Forwarded header values of Portal
+            - SetRequestHeader=X-Forwarded-Host, "${PORTAL_URL:localhost}"
+            - SetRequestHeader=X-Forwarded-Proto, https
+            - SetRequestHeader=X-Forwarded-Port, 443

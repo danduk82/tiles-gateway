@@ -1,0 +1,62 @@
+gateway-context-path: /flicc/gui
+
+server:
+  port: 9082
+  max-http-header-size: 16KB
+  compression:
+    enabled: true
+    mime-types:
+      - text/html
+      - text/xml
+      - text/plain
+      - text/css
+      - text/javascript
+      - application/javascript
+      - application/json
+    min-response-size: 2KB
+  ssl:
+    enabled: true
+    key-store: classpath:dev.p12
+    key-alias: dev
+    key-store-password: password
+    key-store-type: PKCS12
+    protocol: TLS
+
+spring:
+  application:
+    name: gateway-gis-tiles
+  cloud:
+    discovery:
+      client:
+        simple:
+          instances:
+            geoserver:
+              - uri: http://localhost:61590
+            vectortiles:
+              - uri: http://localhost:61584
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+management:
+  server:
+    port: 9083
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics, env, loggers, prometheus
+  health:
+    livenessState:
+      enabled: true
+    readinessState:
+      enabled: true
+
+logging:
+  pattern:
+    console: "%d{YYYY-MM-dd HH:mm:ss.SSS} [%thread] [TID:%X{TransferID:-}] [%-5level] [%logger{36}] - %msg%n"
+  level:
+    root: DEBUG

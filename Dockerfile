@@ -1,0 +1,11 @@
+ARG BASE_IMAGE
+FROM $BASE_IMAGE
+
+ARG JAR_FILE
+
+WORKDIR /runtime
+
+ENV RUNTIME_JAR frontend-edge.jar
+COPY target/${JAR_FILE} /runtime/$RUNTIME_JAR
+
+CMD java -jar $RUNTIME_JAR

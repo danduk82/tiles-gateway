@@ -1,0 +1,15 @@
+spring:
+  cloud:
+    loadbalancer:
+      health-check:
+        interval: 1s
+        path:
+          vectortiles: "/"
+    gateway:
+      routes:
+        - id: vectortiles
+          uri: lb://vectortiles
+          predicates:
+            - Path=${gateway-context-path}/api/vectortiles/**
+          filters:
+            - StripPrefix=4
