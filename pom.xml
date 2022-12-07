@@ -9,12 +9,13 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>org.danduk.tiles</groupId>
-	<artifactId>gateway</artifactId>
+	<artifactId>tiles-gateway</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>gateway</name>
+	<name>tiles-gateway</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
+		<author>danduk82</author>
 		<spring-cloud.version>2022.0.0-RC2</spring-cloud.version>
 		<docker-base-image>eclipse-temurin:17.0.4.1_1-jre</docker-base-image>
 	</properties>
@@ -74,7 +75,7 @@
 				</executions>
 				<configuration>
 					<skip>false</skip>
-					<repository>${project.artifactId}</repository>
+					<repository>${author}/${project.artifactId}</repository>
     				<tag>${project.version}</tag>
 					<useMavenSettingsForAuth>true</useMavenSettingsForAuth>
 					<buildArgs>
